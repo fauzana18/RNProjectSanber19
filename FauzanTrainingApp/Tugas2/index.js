@@ -1,10 +1,11 @@
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const index = () => {
     return (
         <View style={styles.container}>
+            <StatusBar backgroundColor='#23A0E8' />
             <View style={styles.header}>
                 <Text style={styles.headerText}>Account</Text>
             </View>
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: '#23A0E8',
-        height:100,
+        height:80,
         justifyContent: 'center',
         elevation: 5
     },
