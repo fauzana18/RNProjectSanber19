@@ -25,7 +25,7 @@ const TodoList = () => {
 
     const deleteNote = (val, key) => {
         note.splice(key, 1)
-        setNoteText(val.note)
+        setNote([...note])
     }
     
     return (

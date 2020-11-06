@@ -12,7 +12,7 @@ const index = () => {
 
             <TouchableOpacity>
                 <View style={styles.nameBox}>
-                    <Image style={styles.image} source={require('./foto.png')} />
+                    <Image style={styles.image} source={require('../../assets/images/foto.png')} />
                     <Text style={styles.name}>Ahmad Fauzan Maulana</Text>
                 </View>
             </TouchableOpacity>
