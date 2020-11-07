@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { FlatList, StatusBar, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { RootContext } from './context'
+import { RootContext } from '../context'
 
 const TodoList = () => {
     const state = useContext(RootContext)

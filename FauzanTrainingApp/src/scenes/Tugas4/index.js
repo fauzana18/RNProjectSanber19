@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import TodoList from './TodoList';
-import { RootContext } from './context'
+import { RootContext } from '../context'
 
 const index = () => {
     const [note, setNote] = useState([])
