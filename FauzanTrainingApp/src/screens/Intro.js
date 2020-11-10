@@ -1,12 +1,10 @@
 import React from 'react'
-import { View, Text, Image, StatusBar, SafeAreaView } from 'react-native'
+import { View, Text, Image, StatusBar, ScrollView } from 'react-native'
 import styles from '../styles/style'
 import colors from '../styles/colors'
 import { Button } from '../components/Button'
-//import module  react native app intro slider
 import AppIntroSlider from 'react-native-app-intro-slider'
 
-// data yang akan kita tampilkan sebagai onboarding aplikasi
 const data = [
     {
         id: 1,
@@ -27,7 +25,6 @@ const data = [
 
 const Intro = ({ navigation }) => {
 
-    //tampilan onboarding yang ditampilkan dalam renderItem
     const renderItem = ({ item }) => {
         return (
             <View style={styles.listContainer}>
@@ -40,17 +37,16 @@ const Intro = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
                 <StatusBar backgroundColor={colors.lightBlack} barStyle="light-content" />
                 <View style={styles.textLogoContainer}>
                     <Text style={styles.textLogo}>Jaya Apps</Text>
                 </View>
                 <View style={styles.slider}>
-                    {/* contoh menggunakan component react native app intro slider */}
                     <AppIntroSlider
-                        data={data} //masukan data yang akan ditampilkan menjadi onBoarding, dia bernilai array
-                        renderItem={renderItem} // untuk menampilkan onBoarding dar data array
+                        data={data} 
+                        renderItem={renderItem}
                         renderNextButton={() => null}
                         renderDoneButton={() => null}
                         activeDotStyle={styles.activeDotStyle}
@@ -58,15 +54,15 @@ const Intro = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button style={styles.btnLogin}>
-                        <Text style={styles.btnTextLogin}>Masuk sini kalo dah punya akun</Text>
+                    <Button style={styles.btnLogin} onPress={() => navigation.replace('Login')} >
+                        <Text style={styles.btnTextLogin}>MASUK</Text>
                     </Button>
                     <Button style={styles.btnRegister}>
-                        <Text style={styles.btnTextRegister}>Daftar dulu lah kalo belom punya akun</Text>
+                        <Text style={styles.btnTextRegister}>DAFTAR</Text>
                     </Button>
                 </View>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     )
 }
 

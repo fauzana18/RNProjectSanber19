@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { View, Text, StyleSheet, StatusBar, Animated, Dimensions, SafeAreaView } from 'react-native'
-//import styles from '../styles/style'
+import styles from '../styles/style'
 import colors from '../styles/colors'
 
 const height = Dimensions.get('window').height
@@ -31,7 +31,7 @@ const Splashscreens = () => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>
-                <StatusBar backgroundColor={colors.lightBlack} barStyle="light-content" />
+                <StatusBar backgroundColor={colors.lightBlack} barStyle='default' />
                 <Animated.View style={[styles.quotesContainer, { opacity: fadeOut }]}>
                     <Text style={styles.quotes}>Lancar Jaya</Text>
                 </Animated.View>
@@ -42,30 +42,5 @@ const Splashscreens = () => {
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.lightBlack
-    },
-    quotesContainer: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    quotes: {
-        fontSize: 14,
-        color: colors.lightGrey
-    },
-    logo: {
-        alignItems: 'center',
-        justifyContent: 'flex-end'
-    },
-    textLogo: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: colors.lightGrey
-    }
-})
 
 export default Splashscreens
