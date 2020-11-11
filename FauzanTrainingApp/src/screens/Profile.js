@@ -27,7 +27,7 @@ const Profile = ({navigation}) => {
 
     const getVenue = (token) => {
         Axios.get(`${user}`, {
-            timeout: 20000,
+            timeout: 2000,
             headers: {
                 'Authorization' : 'Bearer' + token
             }

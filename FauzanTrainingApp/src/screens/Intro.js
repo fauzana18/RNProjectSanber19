@@ -4,6 +4,7 @@ import styles from '../styles/style'
 import colors from '../styles/colors'
 import { Button } from '../components/Button'
 import AppIntroSlider from 'react-native-app-intro-slider'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const data = [
     {
@@ -36,6 +37,11 @@ const Intro = ({ navigation }) => {
         )
     }
 
+    const done = async () => {
+        navigation.replace('Login')
+        await AsyncStorage.setItem("skip", 'true')
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
@@ -54,7 +60,7 @@ const Intro = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button style={styles.btnLogin} onPress={() => navigation.replace('Login')} >
+                    <Button style={styles.btnLogin} onPress={done} >
                         <Text style={styles.btnTextLogin}>MASUK</Text>
                     </Button>
                     <Button style={styles.btnRegister}>

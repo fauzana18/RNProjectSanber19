@@ -26,14 +26,18 @@ const AppNavigation = () => {
         setTimeout(() => {
             setIsLoading(!isLoading)
         }, 4000)
-        getToken()
+        setRoute()
     },[])
 
-    const getToken = async () => {
+    const setRoute = async () => {
         try{
             const token = await AsyncStorage.getItem("token")
+            const skip = await AsyncStorage.getItem("skip")
             if(token){
                 setInitial('Profile')
+            }
+            else if(skip == 'true'){
+                setInitial('Login')
             }
         } catch (err) {
             console.log(err)

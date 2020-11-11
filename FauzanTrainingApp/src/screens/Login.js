@@ -39,7 +39,7 @@ const Login = ({navigation}) => {
                 password
             }
             Axios.post(`${auth}`, data, {
-                timeout: 20000
+                timeout: 2000
             })
             .then((res) => {
                 saveToken(res.data.data.token)
@@ -56,7 +56,7 @@ const Login = ({navigation}) => {
     }
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps={"handled"} >
             <View style={styles.container}>
                 <StatusBar backgroundColor={colors.lightBlack} barStyle="light-content" />
                 <Text style={styles.headerText}>Silakan masuk</Text>
@@ -67,7 +67,13 @@ const Login = ({navigation}) => {
                         placeholder = 'Email'
                         placeholderTextColor={colors.grey}
                         onChangeText ={ value => setEmail(value)}
+                        keyboardType={"email-address"}
+                        autoCapitalize={"none"}
                         value= {email}
+                        disableFullscreenUI={true}
+                        returnKeyType={'next'}
+                        onSubmitEditing={() => { passwordInput.focus(); }}
+                        blurOnSubmit={false}
                     />
 
                     <TextInput
@@ -75,8 +81,12 @@ const Login = ({navigation}) => {
                         placeholder = 'Password'
                         placeholderTextColor={colors.grey}
                         onChangeText ={ value => setPassword(value)}
+                        autoCapitalize={"none"}
                         value= {password}
                         secureTextEntry={true}
+                        disableFullscreenUI={true}
+                        ref={input => { passwordInput = input }}
+                        onSubmitEditing={() => login()}
                     />
 
                     <Button style={styles.btnLogin2} onPress={() => login()}>
