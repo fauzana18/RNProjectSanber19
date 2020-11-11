@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, ScrollView, TextInput, StatusBar, Alert } from 'react-native'
 import styles from '../styles/style'
 import colors from '../styles/colors'
@@ -6,14 +6,28 @@ import { Button } from '../components/Button'
 import Axios from 'axios'
 import { auth } from '../api/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import FireBaseAuth from '@react-native-firebase/auth'
+import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin'
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    useEffect(() => {
+        configureGoogleSignIn()
+    }, [])
+
     const saveToken = async (token) => {
         try{
             await AsyncStorage.setItem("token", token)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const saveGoogleToken = async (token) => {
+        try{
+            await AsyncStorage.setItem("googleToken", token)
         } catch (err) {
             console.log(err)
         }
@@ -52,6 +66,27 @@ const Login = ({navigation}) => {
 
         else{
             message("Gagal Masuk", "Email dan password tidak boleh kosong")
+        }
+    }
+
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            offlineAccess: false,
+            webClientId: '663509028506-hgnqchhqvsbmn8i1mgldkudfr6frse4n.apps.googleusercontent.com'
+        })
+    }
+
+    const signInWithGoogle = async () => {
+        try{
+            const { idToken } = await GoogleSignin.signIn()
+            saveGoogleToken(idToken)
+
+            const credential = FireBaseAuth.GoogleAuthProvider.credential(idToken)
+            FireBaseAuth().signInWithCredential(credential)
+            
+            navigation.replace('Profile')
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -100,6 +135,16 @@ const Login = ({navigation}) => {
                         <Text style={styles.registerText} colors={colors.blue}>Daftar</Text>
                     </Button>
                 </View>
+
+                <View style={styles.or}>
+                    <Text style={styles.text}>Atau masuk dengan</Text>
+                </View>
+
+                <GoogleSigninButton
+                style={styles.googleButton}
+                size={GoogleSigninButton.Size.Standard}
+                color={GoogleSigninButton.Color.Light}
+                onPress={() => signInWithGoogle()} />
             </View>
         </ScrollView>
     )

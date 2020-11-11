@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, ScrollView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Axios from 'axios'
@@ -7,25 +7,29 @@ import { main, user } from '../api/api'
 import styles from '../styles/style'
 import colors from '../styles/colors'
 import { Button } from '../components/Button'
+import { GoogleSignin } from '@react-native-community/google-signin'
 
 const Profile = ({navigation}) => {
     const [name, setName] = useState('')
     const [image, setImage] = useState()
+    const [userToken, setUserToken] = useState('')
 
     useEffect( () => {
         getToken()
+        getDataGoogle()
     }, [])
 
     const getToken = async () => {
         try{
             const token = await AsyncStorage.getItem("token")
-            return getVenue(token)
+            setUserToken(token)
+            return getData(token)
         } catch (err) {
             console.log(err)
         }
     }
 
-    const getVenue = (token) => {
+    const getData = (token) => {
         Axios.get(`${user}`, {
             timeout: 2000,
             headers: {
@@ -41,9 +45,44 @@ const Profile = ({navigation}) => {
         })
     }
 
+    const getDataGoogle = async () => {
+        const googleToken = await AsyncStorage.getItem("googleToken")
+        if(googleToken){
+            const userinfo = await GoogleSignin.signInSilently()
+            setImage({uri: userinfo && userinfo.user && userinfo.user.photo})
+            setName(userinfo.user.name)
+        }
+    }
+
+    const confirmation = () => {
+        Alert.alert(
+            "Keluar",
+            "Apakah anda yakin?",
+            [
+                { 
+                    text: "Ya",
+                    onPress: ()=>logout()
+                  },
+                  {
+                    text: "Tidak",
+                    style: "cancel"
+                  },
+            ],
+            { cancelable: true }
+        )
+    }
+
     const logout = async () => {
         try{
-            await AsyncStorage.removeItem('token')
+            if(userToken){
+                await AsyncStorage.removeItem('token')
+            }
+            else{
+                await GoogleSignin.revokeAccess()
+                await GoogleSignin.signOut()
+                await AsyncStorage.removeItem('googleToken')
+            }
+            
             navigation.replace('Login')
         } catch (err) {
             console.log(err)
@@ -93,7 +132,7 @@ const Profile = ({navigation}) => {
                         </View>
                     </Button>
 
-                    <Button style={styles.menuBox} onPress={() => logout()} >
+                    <Button style={styles.menuBox} onPress={() => confirmation()} >
                         <View style={styles.box1}>
                             <Icon style={styles.icon} name="exit-outline" size={40}/>
                             <Text style={styles.text}>Keluar</Text>

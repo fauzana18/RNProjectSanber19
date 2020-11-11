@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "663509028506",
+    "firebase_url": "https://rnprojectsanber.firebaseio.com",
+    "project_id": "rnprojectsanber",
+    "storage_bucket": "rnprojectsanber.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:663509028506:android:cd9ceb21aaaa00cc321923",
+        "android_client_info": {
+          "package_name": "com.fauzantrainingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "663509028506-hgnqchhqvsbmn8i1mgldkudfr6frse4n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM3U10OeFGzfHqmQRbkpJlVZSgruQIPcw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "663509028506-hgnqchhqvsbmn8i1mgldkudfr6frse4n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

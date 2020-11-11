@@ -146,6 +146,16 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: colors.blue
     },
+    or: {
+        alignSelf: 'center',
+        marginTop: 230
+    },
+    googleButton: {
+        width: '40%', 
+        height: 48,
+        alignSelf: 'center',
+        marginTop: 20
+    },
 
     //profile
     body: {

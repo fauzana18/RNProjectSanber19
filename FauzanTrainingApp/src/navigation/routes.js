@@ -32,8 +32,9 @@ const AppNavigation = () => {
     const setRoute = async () => {
         try{
             const token = await AsyncStorage.getItem("token")
+            const googleToken = await AsyncStorage.getItem("googleToken")
             const skip = await AsyncStorage.getItem("skip")
-            if(token){
+            if(token || googleToken){
                 setInitial('Profile')
             }
             else if(skip == 'true'){
