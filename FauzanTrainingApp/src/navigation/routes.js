@@ -33,8 +33,9 @@ const AppNavigation = () => {
         try{
             const token = await AsyncStorage.getItem("token")
             const googleToken = await AsyncStorage.getItem("googleToken")
+            const fingerprint = await AsyncStorage.getItem("fingerprint")
             const skip = await AsyncStorage.getItem("skip")
-            if(token || googleToken){
+            if(token || googleToken || fingerprint){
                 setInitial('Profile')
             }
             else if(skip == 'true'){

@@ -8,6 +8,8 @@ import { auth } from '../api/api'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import FireBaseAuth from '@react-native-firebase/auth'
 import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin'
+import Icon from 'react-native-vector-icons/MaterialIcons'
+import TouchID from 'react-native-touch-id'
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
@@ -28,6 +30,14 @@ const Login = ({navigation}) => {
     const saveGoogleToken = async (token) => {
         try{
             await AsyncStorage.setItem("googleToken", token)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const fingerprintStat = async () => {
+        try{
+            await AsyncStorage.setItem("fingerprint", "Exist")
         } catch (err) {
             console.log(err)
         }
@@ -90,6 +100,26 @@ const Login = ({navigation}) => {
         }
     }
 
+    const fingerprintConfig = {
+        title: 'Authentication Required',
+        imageColor: colors.blue,
+        imageErrorColor: colors.red,
+        sensorDescription: 'Touch Sensor',
+        sensorErrorDescription: 'Failed',
+        cancelText: 'Cancel'
+    }
+
+    const signInWithFingerprint = () => {
+        TouchID.authenticate('', fingerprintConfig)
+        .then(success => {
+            navigation.replace('Profile')
+            fingerprintStat()
+        })
+        .catch(error => {
+            message("Gagal Masuk", "Masuk dengan sidik jari gagal")
+        })
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps={"handled"} >
             <View style={styles.container}>
@@ -140,11 +170,19 @@ const Login = ({navigation}) => {
                     <Text style={styles.text}>Atau masuk dengan</Text>
                 </View>
 
-                <GoogleSigninButton
-                style={styles.googleButton}
-                size={GoogleSigninButton.Size.Standard}
-                color={GoogleSigninButton.Color.Light}
-                onPress={() => signInWithGoogle()} />
+                <View style={styles.option}>
+                    <Button style={styles.fingerprintButton} onPress={() => signInWithFingerprint()} >
+                        <Icon name="fingerprint" size={20} style={styles.buttonIcon} />
+                        <Text style={styles.fingerprintText}>Fingerprint</Text>
+                        <View></View>
+                    </Button>
+
+                    <GoogleSigninButton
+                    style={styles.googleButton}
+                    size={GoogleSigninButton.Size.Standard}
+                    color={GoogleSigninButton.Color.Light}
+                    onPress={() => signInWithGoogle()} />
+                </View>
             </View>
         </ScrollView>
     )

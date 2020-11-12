@@ -13,10 +13,13 @@ const Profile = ({navigation}) => {
     const [name, setName] = useState('')
     const [image, setImage] = useState()
     const [userToken, setUserToken] = useState('')
+    const [googleToken, setGoogleToken] = useState('')
+    const [fingerprint, setFingerprint] = useState('')
 
     useEffect( () => {
         getToken()
         getDataGoogle()
+        fingerprintCheck()
     }, [])
 
     const getToken = async () => {
@@ -25,6 +28,19 @@ const Profile = ({navigation}) => {
             setUserToken(token)
             return getData(token)
         } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const fingerprintCheck = async () => {
+        try{
+            const check = await AsyncStorage.getItem("fingerprint")
+            setFingerprint(check)
+            if(check){
+                setName("Ojan")
+                setImage(require('../assets/images/foto.png'))
+            }
+        } catch(err) {
             console.log(err)
         }
     }
@@ -47,6 +63,7 @@ const Profile = ({navigation}) => {
 
     const getDataGoogle = async () => {
         const googleToken = await AsyncStorage.getItem("googleToken")
+        setGoogleToken(googleToken)
         if(googleToken){
             const userinfo = await GoogleSignin.signInSilently()
             setImage({uri: userinfo && userinfo.user && userinfo.user.photo})
@@ -77,10 +94,13 @@ const Profile = ({navigation}) => {
             if(userToken){
                 await AsyncStorage.removeItem('token')
             }
-            else{
+            else if(googleToken){
                 await GoogleSignin.revokeAccess()
                 await GoogleSignin.signOut()
                 await AsyncStorage.removeItem('googleToken')
+            }
+            else{
+                await AsyncStorage.removeItem('fingerprint')
             }
             
             navigation.replace('Login')

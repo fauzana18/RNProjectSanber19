@@ -150,11 +150,33 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 230
     },
+    option: {
+        flexDirection: 'row',
+        alignSelf: 'center',
+        alignItems: 'center',
+        marginTop: 20,
+    },
     googleButton: {
         width: '40%', 
         height: 48,
-        alignSelf: 'center',
-        marginTop: 20
+        marginLeft: 10
+    },
+    fingerprintButton: {
+        width: '38%',
+        height: 40,
+        backgroundColor: colors.white,
+        borderRadius: 3,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexDirection: 'row'
+    },
+    fingerprintText: {
+        color: colors.darkGrey,
+        fontWeight: 'bold',
+    },
+    buttonIcon: {
+        paddingLeft: 15,
+        color: colors.blue
     },
 
     //profile
