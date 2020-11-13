@@ -5,6 +5,7 @@ import Intro from '../screens/Intro';
 import SplashScreen from '../screens/SplashScreen';
 import Login from '../screens/Login'
 import Profile from '../screens/Profile'
+import Edit from '../screens/Edit'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Stack = createStackNavigator()
@@ -14,6 +15,7 @@ const MainNavigation = (props) => (
         <Stack.Screen name="Intro" component={Intro} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Edit" component={Edit} />
     </Stack.Navigator>
 )
 

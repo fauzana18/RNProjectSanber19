@@ -226,6 +226,108 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginLeft: 20,
         color: colors.lightGrey
+    },
+
+    //edit
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 30,
+        justifyContent: 'space-between',
+        width: '86%'
+    },
+    headerText2: {
+        alignSelf: 'center',
+        fontSize: 24,
+        color: colors.lightGrey,
+    },
+    backButton: {
+        marginLeft: 20
+    },
+    image2: {
+        height: 200,
+        width: 200,
+        alignSelf: 'center',
+        marginTop: 100,
+        borderRadius: 100,
+        position: 'absolute'
+    },
+    inputBox2: {
+        alignSelf: 'center',
+        width: '80%',
+        marginTop: 30
+    },
+    nameBox2: {
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    editable: {
+        marginBottom: 12
+    },
+    textInput2: {
+        borderColor: colors.lightGrey,
+        borderBottomWidth: 0.5,
+        color: colors.lightGrey,
+        marginBottom: 20,
+        fontSize: 16,
+        width: '90%'
+    },
+    cameraButton: {
+        borderRadius: 50,
+        width: 70,
+        height: 70,
+        backgroundColor: colors.blue,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: 220,
+        marginTop: 170
+    },
+    icon2: {
+        color: colors.lightGrey
+    },
+    flipContainer: {
+        marginLeft: 20,
+        marginTop: 20
+    },
+    flipButton: {
+        borderRadius: 50,
+        backgroundColor: colors.lightGrey,
+        height: 50,
+        width: 50,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    round: {
+        borderWidth: 1,
+        height: 350,
+        width: 250,
+        borderColor: colors.lightGrey,
+        alignSelf: 'center',
+        borderRadius: 150,
+        marginTop: 30
+    },
+    rectangle: {
+        borderWidth: 1,
+        height: 120,
+        width: 200,
+        borderColor: colors.lightGrey,
+        alignSelf: 'center',
+        marginTop: 100
+    },
+    takeContainer: {
+        alignItems: 'center',
+        flex: 1,
+        justifyContent: 'flex-end'
+    },
+    takeButton: {
+        backgroundColor: colors.lightGrey,
+        borderRadius: 50,
+        width: 90,
+        height: 90,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 40
     }
 })
 

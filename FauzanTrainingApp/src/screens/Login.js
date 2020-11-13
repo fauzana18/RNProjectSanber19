@@ -63,7 +63,7 @@ const Login = ({navigation}) => {
                 password
             }
             Axios.post(`${auth}`, data, {
-                timeout: 2000
+                timeout: 5000
             })
             .then((res) => {
                 saveToken(res.data.data.token)

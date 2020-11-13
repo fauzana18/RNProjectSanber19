@@ -14,11 +14,11 @@ const Profile = ({navigation}) => {
     const [image, setImage] = useState()
     const [userToken, setUserToken] = useState('')
     const [googleToken, setGoogleToken] = useState('')
-    const [fingerprint, setFingerprint] = useState('')
 
     useEffect( () => {
         getToken()
         getDataGoogle()
+        configureGoogleSignIn()
         fingerprintCheck()
     }, [])
 
@@ -35,7 +35,6 @@ const Profile = ({navigation}) => {
     const fingerprintCheck = async () => {
         try{
             const check = await AsyncStorage.getItem("fingerprint")
-            setFingerprint(check)
             if(check){
                 setName("Ojan")
                 setImage(require('../assets/images/foto.png'))
@@ -47,17 +46,24 @@ const Profile = ({navigation}) => {
 
     const getData = (token) => {
         Axios.get(`${user}`, {
-            timeout: 2000,
+            timeout: 5000,
             headers: {
                 'Authorization' : 'Bearer' + token
             }
         })
         .then((res) => {
             setName(res.data.data.profile.name)
-            setImage({uri: `${main}${res.data.data.profile.photo}`})
+            setImage({uri: `${main}${res.data.data.profile.photo}`+ '?' + new Date(), cache: 'reload', headers: {Pragma: 'no-cache' }})
         })
         .catch((err) => {
             console.log(err)
+        })
+    }
+
+    const configureGoogleSignIn = () => {
+        GoogleSignin.configure({
+            offlineAccess: false,
+            webClientId: '663509028506-hgnqchhqvsbmn8i1mgldkudfr6frse4n.apps.googleusercontent.com'
         })
     }
 
@@ -109,6 +115,12 @@ const Profile = ({navigation}) => {
         }
     }
 
+    const editData = () => {
+        if(userToken){
+            navigation.push('Edit')
+        }
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
@@ -117,8 +129,8 @@ const Profile = ({navigation}) => {
 
                 <View style={styles.body}>
                     <View style={styles.topBox}>
-                        <Button style={styles.nameBox}>
-                            <Image style={styles.image} source={image} />
+                        <Button style={styles.nameBox} onPress={() => editData() } >
+                            <Image style={styles.image} source={ image } />
                             <Text style={styles.name}> {name} </Text>
                         </Button>
 
