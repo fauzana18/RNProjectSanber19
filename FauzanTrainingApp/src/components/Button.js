@@ -3,7 +3,7 @@ import { TouchableOpacity } from 'react-native'
 
 export const Button = (props) => {
     return (
-        <TouchableOpacity style={{...props.style}} onPress={props.onPress} activeOpacity={0.7}>
+        <TouchableOpacity style={{...props.style}} onPress={props.onPress} activeOpacity={0.7} disabled={props.disabled}>
             {props.children}
         </TouchableOpacity>
     )

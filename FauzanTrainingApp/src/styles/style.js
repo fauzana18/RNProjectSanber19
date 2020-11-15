@@ -136,7 +136,6 @@ const styles = StyleSheet.create({
     },
     register: {
         height: 20,
-        width: 50
     },
     textLogin: {
         fontSize: 14,
@@ -263,11 +262,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     editable: {
-        marginBottom: 12
+        flex: 1,
+        marginBottom: 11.5,
+        height: 40,
+        justifyContent: 'center'
     },
     textInput2: {
-        borderColor: colors.lightGrey,
-        borderBottomWidth: 0.5,
         color: colors.lightGrey,
         marginBottom: 20,
         fontSize: 16,
@@ -328,7 +328,70 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 40
-    }
+    },
+
+    //register
+    or2: {
+        alignSelf: 'center',
+        marginTop: 150
+    },
+    tnc: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 40
+    },
+    textTnc: {
+        fontSize: 14,
+        color: colors.lightGrey,
+        textDecorationLine: 'underline'
+    },
+
+    //verification
+    otpBox: {
+        width: '80%',
+        alignSelf:'center',
+        height: 100
+    },
+    underlineStyleBase: {
+        width: 30,
+        height: 45,
+        borderWidth: 0,
+        borderBottomWidth: 1,
+        borderColor: colors.lightGrey,
+        color: colors.lightGrey,
+        fontSize: 20,
+      },
+    
+      underlineStyleHighLighted: {
+        borderColor: colors.darkGrey,
+      },
+      instruction: {
+        marginTop: 50,
+        marginLeft: 20
+      },
+
+      //password
+      joinBox: {
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+      },
+      eyeIcon: {
+        flex: 1,  
+        marginTop: 10,
+        borderColor: colors.lightGrey,
+        borderBottomWidth: 1,
+        height: 40,
+        justifyContent: 'center'
+      },
+      passwordInput: {
+        borderBottomWidth: 1,
+        borderColor: colors.lightGrey,
+        color: colors.lightGrey,
+        marginTop: 10,
+        marginBottom: 10,
+        width: '80%'
+      }
 })
 
 export default styles

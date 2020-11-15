@@ -63,10 +63,6 @@ const Edit = ({navigation}) => {
         }
     }
 
-    const edit = () => {
-        setEditable(!editable)
-    }
-
     const save = () => {
         const formData = new FormData()
         formData.append('name', name)
@@ -149,7 +145,7 @@ const Edit = ({navigation}) => {
                     <Text style={styles.textLogin} >Nama Lengkap</Text>
                     <View style={styles.nameBox2}>
                         <TextInput
-                            style={styles.textInput2} 
+                            style={[styles.textInput2, {color: editable ? colors.lightGrey : colors.grey}]} 
                             placeholder = 'Nama'
                             placeholderTextColor={colors.grey}
                             onChangeText ={ value => setName(value)}
@@ -157,7 +153,7 @@ const Edit = ({navigation}) => {
                             value= {name}
                             editable={editable} 
                         />
-                        <Button style={styles.editable} onPress={() => edit()}>
+                        <Button style={styles.editable} onPress={() => setEditable(!editable)}>
                             <Icon name='edit-2' size={20} style={styles.icon2} />
                         </Button>
                     </View>

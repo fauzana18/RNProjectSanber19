@@ -10,10 +10,13 @@ import FireBaseAuth from '@react-native-firebase/auth'
 import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import TouchID from 'react-native-touch-id'
+import Icon2 from 'react-native-vector-icons/Feather'
 
 const Login = ({navigation}) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [visible, setVisible] = useState(true)
+    const [icon, setIcon] = useState('eye-off')
 
     useEffect(() => {
         configureGoogleSignIn()
@@ -120,11 +123,21 @@ const Login = ({navigation}) => {
         })
     }
 
+    const isVisible = () => {
+        setVisible(!visible)
+        if(icon == 'eye'){
+            setIcon('eye-off')
+        }
+        else{
+            setIcon('eye')
+        }
+    }
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer} keyboardShouldPersistTaps={"handled"} >
             <View style={styles.container}>
                 <StatusBar backgroundColor={colors.lightBlack} barStyle="light-content" />
-                <Text style={styles.headerText}>Silakan masuk</Text>
+                <Text style={styles.headerText}>Silakan Masuk</Text>
 
                 <View style={styles.inputBox}>
                     <TextInput
@@ -141,18 +154,23 @@ const Login = ({navigation}) => {
                         blurOnSubmit={false}
                     />
 
-                    <TextInput
-                        style={styles.textInput} 
-                        placeholder = 'Password'
-                        placeholderTextColor={colors.grey}
-                        onChangeText ={ value => setPassword(value)}
-                        autoCapitalize={"none"}
-                        value= {password}
-                        secureTextEntry={true}
-                        disableFullscreenUI={true}
-                        ref={input => { passwordInput = input }}
-                        onSubmitEditing={() => login()}
-                    />
+                    <View style={styles.joinBox}>
+                        <TextInput
+                            style={styles.passwordInput} 
+                            placeholder = 'Password'
+                            placeholderTextColor={colors.grey}
+                            onChangeText ={ value => setPassword(value)}
+                            autoCapitalize={"none"}
+                            value= {password}
+                            secureTextEntry={visible}
+                            disableFullscreenUI={true}
+                            ref={input => { passwordInput = input }}
+                            onSubmitEditing={() => login()}
+                        />
+                        <Button style={styles.eyeIcon} onPress={() => isVisible()}>
+                            <Icon2 name={icon} size={20} style={styles.icon} />
+                        </Button>
+                    </View>
 
                     <Button style={styles.btnLogin2} onPress={() => login()}>
                         <Text style={styles.btnTextLogin}>MASUK</Text>
@@ -161,7 +179,7 @@ const Login = ({navigation}) => {
 
                 <View style={styles.registerBox}>
                     <Text style={styles.textLogin}>Belum punya akun? </Text>
-                    <Button style={styles.register}>
+                    <Button style={styles.register} onPress={() => navigation.replace('Register')}>
                         <Text style={styles.registerText} colors={colors.blue}>Daftar</Text>
                     </Button>
                 </View>

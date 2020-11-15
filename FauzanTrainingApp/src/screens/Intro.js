@@ -37,8 +37,13 @@ const Intro = ({ navigation }) => {
         )
     }
 
-    const done = async () => {
+    const login = async () => {
         navigation.replace('Login')
+        await AsyncStorage.setItem("skip", 'true')
+    }
+
+    const register = async () => {
+        navigation.replace('Register')
         await AsyncStorage.setItem("skip", 'true')
     }
 
@@ -60,10 +65,10 @@ const Intro = ({ navigation }) => {
                     />
                 </View>
                 <View style={styles.btnContainer}>
-                    <Button style={styles.btnLogin} onPress={done} >
+                    <Button style={styles.btnLogin} onPress={() => login()} >
                         <Text style={styles.btnTextLogin}>MASUK</Text>
                     </Button>
-                    <Button style={styles.btnRegister}>
+                    <Button style={styles.btnRegister} onPress={() => register()}>
                         <Text style={styles.btnTextRegister}>DAFTAR</Text>
                     </Button>
                 </View>
